@@ -18,6 +18,10 @@
 
     wget -O - https://github.com/akorshun/wrt_scripts/raw/refs/heads/main/disable_v6_and_reboot.sh | sh
 
+**Expand root and reboot**
+
+    wget -O - https://github.com/akorshun/wrt_scripts/raw/refs/heads/main/expand_root.sh | sh
+
 **TorrServer**
 
     wget -O - https://raw.githubusercontent.com/Sanchopance/Routerich/refs/heads/main/TSinstall.sh | sh
