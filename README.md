@@ -10,6 +10,10 @@
 
     wget -O - https://github.com/akorshun/wrt_scripts/raw/refs/heads/main/install_temp_load_cpu.sh | sh
 
+**Fastfetch**
+
+    wget -O - https://raw.githubusercontent.com/akorshun/wrt_scripts/refs/heads/main/install_fastfetch.sh | sh
+
 **Set Perf Profile Rockchip**
 
     wget -O - https://github.com/akorshun/wrt_scripts/raw/refs/heads/main/set_perf_profile_rockchip.sh | sh
