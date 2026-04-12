@@ -14,6 +14,10 @@
 
     wget -O - https://raw.githubusercontent.com/akorshun/wrt_scripts/refs/heads/main/install_fastfetch.sh | sh
 
+**netstat**
+
+    wget -O - https://raw.githubusercontent.com/akorshun/wrt_scripts/refs/heads/main/install_netstat.sh | sh
+
 **Set Perf Profile Rockchip**
 
     wget -O - https://github.com/akorshun/wrt_scripts/raw/refs/heads/main/set_perf_profile_rockchip.sh | sh
