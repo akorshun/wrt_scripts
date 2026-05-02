@@ -10,6 +10,13 @@
 
     wget -O - https://github.com/akorshun/wrt_scripts/raw/refs/heads/main/install_temp_load_cpu.sh | sh
 
+**fancontrol**
+
+    wget -O - https://github.com/akorshun/wrt_scripts/raw/refs/heads/main/install_fancontrol.sh | sh
+    uci set fancontrol.settings.fan_file='/sys/class/hwmon/hwmon11/pwm1'
+    uci commit fancontrol
+    /etc/init.d/fancontrol restart
+
 **Fastfetch**
 
     wget -O - https://raw.githubusercontent.com/akorshun/wrt_scripts/refs/heads/main/install_fastfetch.sh | sh
