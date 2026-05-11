@@ -2,6 +2,10 @@
 
 ## Installation notes
 
+**Allow untrusted apk from web**
+
+    wget -O - https://github.com/akorshun/wrt_scripts/raw/refs/heads/main/allow_untrusted_apk_from_web.sh | sh
+
 **Argon theme**
 
     wget -O - https://github.com/akorshun/wrt_scripts/raw/refs/heads/main/install_argon_theme.sh | sh
