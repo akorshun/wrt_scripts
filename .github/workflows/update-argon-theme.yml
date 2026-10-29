@@ -1,0 +1,107 @@
+name: Update Argon theme
+
+on:
+  schedule:
+    - cron: "30 4 * * *" # daily at 04:30 UTC (07:30 MSK)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-argon-theme
+  cancel-in-progress: false
+
+jobs:
+  update-argon-theme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Check upstream for a new stable release
+        id: check
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          # /releases/latest returns only the newest non-draft, non-prerelease release
+          release_json=$(curl -fsSL \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/jerrykuku/luci-theme-argon/releases/latest)
+
+          tag=$(printf '%s' "$release_json" | jq -r '.tag_name')
+
+          asset_json=$(printf '%s' "$release_json" | jq -c \
+            '[.assets[] | select(.name | test("^luci-theme-argon-.*\\.apk$"))][0] // empty')
+
+          if [ -z "$asset_json" ]; then
+            echo "::error::No luci-theme-argon-*.apk asset in latest stable release $tag"
+            exit 1
+          fi
+
+          asset_name=$(printf '%s' "$asset_json" | jq -r '.name')
+          asset_url=$(printf '%s' "$asset_json" | jq -r '.browser_download_url')
+          asset_digest=$(printf '%s' "$asset_json" | jq -r '.digest // ""' | sed 's/^sha256://')
+
+          version=${asset_name#luci-theme-argon-}
+          version=${version%.apk}
+
+          local_digest=""
+          if [ -f argon_theme.apk ]; then
+            local_digest=$(sha256sum argon_theme.apk | cut -d" " -f1)
+          fi
+
+          {
+            echo "tag=$tag"
+            echo "version=$version"
+            echo "asset_url=$asset_url"
+            echo "asset_digest=$asset_digest"
+          } >> "$GITHUB_OUTPUT"
+
+          if [ -n "$asset_digest" ] && [ "$local_digest" = "$asset_digest" ]; then
+            echo "up_to_date=true" >> "$GITHUB_OUTPUT"
+            echo "Argon theme is up to date: $tag ($asset_name)."
+          else
+            echo "up_to_date=false" >> "$GITHUB_OUTPUT"
+            echo "New stable release found: $tag ($asset_name)."
+            echo "Current APK sha256: ${local_digest:-<missing>}"
+            echo "Upstream APK sha256: $asset_digest"
+          fi
+
+      - name: Download and verify the new APK
+        if: steps.check.outputs.up_to_date != 'true'
+        env:
+          ASSET_URL: ${{ steps.check.outputs.asset_url }}
+          ASSET_DIGEST: ${{ steps.check.outputs.asset_digest }}
+        run: |
+          set -euo pipefail
+
+          curl -fsSL -o argon_theme.apk "$ASSET_URL"
+
+          if [ -n "$ASSET_DIGEST" ]; then
+            printf '%s  %s\n' "$ASSET_DIGEST" argon_theme.apk | sha256sum -c -
+          else
+            echo "::warning::Upstream did not publish a sha256 digest, skipping verification"
+          fi
+
+          ls -l argon_theme.apk
+
+      - name: Commit and push
+        if: steps.check.outputs.up_to_date != 'true'
+        env:
+          VERSION: ${{ steps.check.outputs.version }}
+          TAG: ${{ steps.check.outputs.tag }}
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add argon_theme.apk
+          git commit -m "Update Argon theme to $VERSION" \
+                     -m "Auto-update from upstream stable release $TAG." \
+                     -m "https://github.com/jerrykuku/luci-theme-argon/releases/tag/$TAG"
+          git push
