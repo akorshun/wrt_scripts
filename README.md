@@ -52,3 +52,7 @@
 **Zapret-Manager**
 
     sh <(wget -O - https://raw.githubusercontent.com/StressOzz/Zapret-Manager/main/Zapret-Manager.sh)
+
+**Zapret Flow Offloading FIX**
+
+    sh <(wget -O - https://raw.githubusercontent.com/akorshun/wrt_scripts/refs/heads/main/flow_offloading_fix.sh)
