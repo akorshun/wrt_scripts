@@ -4,42 +4,42 @@
 
 **Allow untrusted apk from web**
 
-    wget -O - https://github.com/akorshun/wrt_scripts/raw/refs/heads/main/allow_untrusted_apk_from_web.sh | sh
+    wget -O - https://raw.githubusercontent.com/akorshun/wrt_scripts/main/allow_untrusted_apk_from_web.sh | sh
 
 **Argon theme**
 
-    wget -O - https://github.com/akorshun/wrt_scripts/raw/refs/heads/main/install_argon_theme.sh | sh
+    wget -O - https://raw.githubusercontent.com/akorshun/wrt_scripts/main/install_argon_theme.sh | sh
 
 **CPU temp and load**
 
-    wget -O - https://github.com/akorshun/wrt_scripts/raw/refs/heads/main/install_temp_load_cpu.sh | sh
+    wget -O - https://raw.githubusercontent.com/akorshun/wrt_scripts/main/install_temp_load_cpu.sh | sh
 
 **fancontrol**
 
-    wget -O - https://github.com/akorshun/wrt_scripts/raw/refs/heads/main/install_fancontrol.sh | sh
+    wget -O - https://raw.githubusercontent.com/akorshun/wrt_scripts/main/install_fancontrol.sh | sh
     uci set fancontrol.settings.fan_file='/sys/class/hwmon/hwmon11/pwm1'
     uci commit fancontrol
     /etc/init.d/fancontrol restart
 
 **Fastfetch**
 
-    wget -O - https://raw.githubusercontent.com/akorshun/wrt_scripts/refs/heads/main/install_fastfetch.sh | sh
+    wget -O - https://raw.githubusercontent.com/akorshun/wrt_scripts/main/install_fastfetch.sh | sh
 
 **netstat**
 
-    wget -O - https://raw.githubusercontent.com/akorshun/wrt_scripts/refs/heads/main/install_netstat.sh | sh
+    wget -O - https://raw.githubusercontent.com/akorshun/wrt_scripts/main/install_netstat.sh | sh
 
 **Set Perf Profile Rockchip**
 
-    wget -O - https://github.com/akorshun/wrt_scripts/raw/refs/heads/main/set_perf_profile_rockchip.sh | sh
+    wget -O - https://raw.githubusercontent.com/akorshun/wrt_scripts/main/set_perf_profile_rockchip.sh | sh
 
 **Disable V6 and reboot**
 
-    wget -O - https://github.com/akorshun/wrt_scripts/raw/refs/heads/main/disable_v6_and_reboot.sh | sh
+    wget -O - https://raw.githubusercontent.com/akorshun/wrt_scripts/main/disable_v6_and_reboot.sh | sh
 
 **Expand root and reboot**
 
-    wget -O - https://github.com/akorshun/wrt_scripts/raw/refs/heads/main/expand_root.sh | sh
+    wget -O - https://raw.githubusercontent.com/akorshun/wrt_scripts/main/expand_root.sh | sh
 
 **TorrServer**
 
@@ -55,4 +55,4 @@
 
 **Zapret Flow Offloading FIX**
 
-    sh <(wget -O - https://raw.githubusercontent.com/akorshun/wrt_scripts/refs/heads/main/flow_offloading_fix.sh)
+    sh <(wget -O - https://raw.githubusercontent.com/akorshun/wrt_scripts/main/flow_offloading_fix.sh)
