@@ -10,6 +10,12 @@
 
     wget -O - https://raw.githubusercontent.com/akorshun/wrt_scripts/main/install_argon_theme.sh | sh
 
+**Vantage theme (OpenWrt 25.12+, apk)**
+
+    wget -O - https://raw.githubusercontent.com/akorshun/wrt_scripts/main/install_vantage_theme.sh | sh
+
+Installs or updates the latest [luci-theme-vantage](https://github.com/anothaDev/luci-theme-vantage) release (`luci-theme-vantage`, `luci-app-vantage`, `luci-app-vantage-aps`, `luci-app-vantage-traffic`). After starting, the script prompts you to select language pack(s) to install: enter `0` for none (English only), `a` for all available languages, or one/more numbers (or language codes like `ru`) separated by spaces.
+
 **CPU temp and load**
 
     wget -O - https://raw.githubusercontent.com/akorshun/wrt_scripts/main/install_temp_load_cpu.sh | sh
